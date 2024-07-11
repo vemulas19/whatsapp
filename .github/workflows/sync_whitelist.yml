@@ -21,4 +21,4 @@ jobs:
           git remote add target https://github.com/vemulas19/whatsapp-stagging  # Replace with your target repository
           git push target master  # Adjust the branch name as needed
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
