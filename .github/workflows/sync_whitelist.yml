@@ -3,7 +3,7 @@ name: Filter and Sync Whitelisted Commits
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   filter_and_sync:
