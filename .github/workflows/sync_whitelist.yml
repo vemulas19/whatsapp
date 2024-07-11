@@ -3,7 +3,7 @@ name: Sync Repositories
 on:
   push:
     branches:
-      - master
+      - master  # Adjust the branch name as needed
 
 jobs:
   sync:
@@ -13,33 +13,12 @@ jobs:
       - name: Checkout Source Repository
         uses: actions/checkout@v2
         with:
-          repository: vemulas19/whatsapp
-          ref: master
-
-      - name: Create or Update Target Repository
-        id: create_repo
-        run: |
-          REPO_NAME="whatsapp-staging1"
-          OWNER="vemulas19"
-          TOKEN="${{ secrets.GH_PAT }}"
-          
-          # Check if repository exists
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -u $OWNER:$TOKEN "https://api.github.com/repos/$OWNER/$REPO_NAME")
-          
-          if [ $STATUS -eq 404 ]; then
-            # Repository doesn't exist, create it
-            RESPONSE=$(curl -s -X POST -u $OWNER:$TOKEN -H "Accept: application/vnd.github.v3+json" -d '{"name":"'$REPO_NAME'"}' https://api.github.com/user/repos)
-            echo "Repository $OWNER/$REPO_NAME created."
-          else
-            echo "Repository $OWNER/$REPO_NAME already exists."
-          fi
-
-      - name: Add Remote for Target Repository
-        if: steps.create_repo.outputs.status == '404'
-        run: git remote add target https://github.com/vemulas19/whatsapp-staging1
+          repository: vemulas19/whatsapp  # Replace with your source repository
+          ref: master  # Adjust the branch name as needed
 
       - name: Push to Target Repository
         run: |
-          git push target master
+          git remote add target https://github.com/vemulas19/whatsapp-stagging  # Replace with your target repository
+          git push target master  # Adjust the branch name as needed
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use the name of your secret here
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
