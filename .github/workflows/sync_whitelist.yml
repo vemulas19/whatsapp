@@ -1,55 +1,24 @@
-name: Filter and Sync Whitelisted Commits
+name: Sync Repositories
 
 on:
   push:
     branches:
-      - master
+      - master  # Adjust the branch name as needed
 
 jobs:
-  filter_and_sync:
+  sync:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Source Repository
-      uses: actions/checkout@v2
-      with:
-        repository: vemulas19/whatsapp
-        ref: main
+      - name: Checkout Source Repository
+        uses: actions/checkout@v2
+        with:
+          repository: vemulas19/whatsapp  # Replace with your source repository
+          ref: main  # Adjust the branch name as needed
 
-    - name: Set up Git Configuration
-      run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-
-    - name: Filter Commits
-      run: |
-        git checkout -b filtered-branch
-        
-        # Get the list of commits from whitelisted users
-        WHITELISTED_COMMITS=$(git log --pretty=format:"%H" --author="india-domain.com\|kazakhstan-domain.com")
-        
-        # Revert all commits to a specific initial commit (e.g., the first commit)
-        INITIAL_COMMIT=$(git rev-list --max-parents=0 HEAD)
-        git reset --hard $INITIAL_COMMIT
-        
-        # Cherry-pick each whitelisted commit onto the new branch
-        for commit in $WHITELISTED_COMMITS; do
-          git cherry-pick $commit || break
-        done
-        
-        # Push the filtered branch to the staging repository
-        git remote add staging https://github.com/vemulas19/whatsapp-stagging
-        git push -u staging filtered-branch:main -f
-
-    - name: Checkout Staging Repository
-      uses: actions/checkout@v2
-      with:
-        repository: vemulas19/whatsapp-stagging
-        ref: main
-
-    - name: Sync to Target Repository
-      run: |
-        git remote add target https://github.com/vemulas19/ABC-whatsapp
-        git push target main -f
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push to Target Repository
+        run: |
+          git remote add target https://github.com/vemulas19/whatsapp-stagging  # Replace with your target repository
+          git push target main  # Adjust the branch name as needed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
