@@ -40,6 +40,6 @@ jobs:
 
       - name: Push to Target Repository
         run: |
-          git push target main
+          git push target master
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Use the name of your secret here
