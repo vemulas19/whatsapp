@@ -1,0 +1,24 @@
+name: Sync Repositories
+
+on:
+  push:
+    branches:
+      - branch1  #  Adjust the branch name as needed
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v2
+        with:
+          repository: vemulas19/whatsapp  # Replace with your source repository
+          ref: branch1  # Adjust the branch name as needed
+
+      - name: Push to Target Repository
+        run: |
+          git remote add target https://github.com/vemulas19/whatsapp-stagging  # Replace with your target repository
+          git push target branch1  # Adjust the branch name as needed
+        env:
+          GITHUB_TOKEN: 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
