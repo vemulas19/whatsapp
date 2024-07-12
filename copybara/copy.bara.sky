@@ -1,0 +1,44 @@
+# /path/to/your/maven/project/copybara/copy.bara.sky
+core.workflow(
+    name = "filter_and_sync",
+    origin = git.github_origin(
+        url = "https://github.com/vemulas19/whatsapp.git",
+        ref = "main",
+    ),
+    destination = git.github_destination(
+        url = "https://github.com/vemulas19/whatsapp-stagging.git",
+        push = "main",
+    ),
+    authoring = authoring.pass_thru(
+        default = "vemulas19 <vemulas19@gmail.com>",
+        mode = "PATTERN",
+        pattern = {".*": "vemulas19 <vemulas19@gmail.com>"},
+    ),
+    transformations = [
+        core.replace(
+            before = r"Author: (\w+)",
+            after = "Author: vemulas19 <vemulas19@gmail.com>",
+            regex_groups = {1: ["vemulas19", "vemulas56"]},  # Whitelisted users
+            repeated_groups = True,
+        ),
+    ],
+    mode = "SQUASH",  # Or any other mode that fits your needs
+)
+
+core.workflow(
+    name = "sync_to_target",
+    origin = git.github_origin(
+        url = "https://github.com/vemulas19/whatsapp-stagging.git",
+        ref = "main",
+    ),
+    destination = git.github_destination(
+        url = "https://github.com/vemulas19/whatsapp-final.git",
+        push = "main",
+    ),
+    authoring = authoring.pass_thru(
+        default = "vemulas19 <vemulas19@gmail.com>",
+        mode = "PATTERN",
+        pattern = {".*": "vemulas19 <vemulas19@gmail.com>"},
+    ),
+    mode = "ITERATIVE",  # Or any other mode that fits your needs
+)
