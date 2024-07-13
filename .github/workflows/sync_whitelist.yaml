@@ -20,13 +20,13 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add target https://github.com/vemulas19/whatsapp-stagging.git
+          git remote add target https://github.com/vemulas19/whatsapp-stagging1.git
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Push to Target Repository
         run: |
-          git remote add target https://github.com/vemulas19/whatsapp-stagging  # Replace with your target repository
+          git remote add target https://github.com/vemulas19/whatsapp-stagging1  # Replace with your target repository
           git push target master  # Adjust the branch name as needed
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
