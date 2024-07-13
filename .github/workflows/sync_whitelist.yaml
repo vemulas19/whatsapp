@@ -3,7 +3,7 @@ name: Sync Repositories
 on:
   push:
     branches:
-      - branch1  # Adjust the branch name as needed
+      - branch1  # Adjust the branch name as needed like master
 
 jobs:
   sync:
@@ -15,10 +15,17 @@ jobs:
         with:
           repository: vemulas19/whatsapp  # Replace with your source repository
           ref: branch1  # Adjust the branch name as needed
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add target https://github.com/vemulas19/whatsapp-stagging.git
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Push to Target Repository
         run: |
-          git remote add target https://github.com/vemulas19/whatsapp-stagging  # Replace with your target repository
           git push target branch1  # Adjust the branch name as needed
         env:
-          GITHUB_TOKEN: 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
+          GH_PAT: ${{ secrets.GH_PAT }}
