@@ -26,6 +26,6 @@ jobs:
 
       - name: Push to Target Repository
         run: |
-          git push target master  # Adjust the branch name as needed
+          git push target branch1  # Adjust the branch name as needed
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
