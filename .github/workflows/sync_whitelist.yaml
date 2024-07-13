@@ -3,7 +3,7 @@ name: Sync Repositories
 on:
   push:
     branches:
-      - master  # Adjust the branch name as needed
+      - master  # Adjust the branch name as needed like master
 
 jobs:
   sync:
