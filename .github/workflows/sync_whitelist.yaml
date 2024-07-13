@@ -15,6 +15,14 @@ jobs:
         with:
           repository: vemulas19/whatsapp  # Replace with your source repository
           ref: master  # Adjust the branch name as needed
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add target https://github.com/vemulas19/whatsapp-stagging.git
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
 
       - name: Push to Target Repository
         run: |
