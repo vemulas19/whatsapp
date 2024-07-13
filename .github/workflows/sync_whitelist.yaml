@@ -21,4 +21,4 @@ jobs:
           git remote add target https://github.com/vemulas19/whatsapp-stagging  # Replace with your target repository
           git push target master  # Adjust the branch name as needed
         env:
-          GH_PAT: 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
+          GH_PAT: ${{ secrets.GH_PAT }}
