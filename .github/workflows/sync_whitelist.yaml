@@ -24,3 +24,5 @@ jobs:
           git fetch origin
           git reset --hard origin/branch1
           git push https://vemulas19:${{ secrets.GH_PAT }}@github.com/vemulas19/whatsapp-stagging.git branch1 --force
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
