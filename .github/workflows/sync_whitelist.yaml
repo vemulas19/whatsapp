@@ -22,7 +22,5 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git remote add target https://github.com/vemulas19/whatsapp-stagging.git
           git fetch origin
-          git reset --soft origin/branch1
-          git add -A
-          git commit -m "Sync changes from branch1"
-          git push https://vemulas19:${{ secrets.GH_PAT }}@github.com/vemulas19/whatsapp-stagging.git branch1
+          git reset --hard origin/branch1
+          git push https://vemulas19:${{ secrets.GH_PAT }}@github.com/vemulas19/whatsapp-stagging.git branch1 --force
