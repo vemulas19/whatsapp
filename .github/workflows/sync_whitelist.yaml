@@ -3,7 +3,7 @@ name: Sync Repositories
 on:
   push:
     branches:
-      - branch1  # Adjust the branch name as needed
+      - master  # Adjust the branch name as needed
 
 jobs:
   sync:
@@ -13,16 +13,16 @@ jobs:
       - name: Checkout Source Repository
         uses: actions/checkout@v2
         with:
-          repository: vemulas19/whatsapp  # Replace with your source repository
-          ref: branch1  # Adjust the branch name as needed
+          repository: vemulas19/practict  # Replace with your source repository
+          ref: master  # Adjust the branch name as needed
 
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add target https://github.com/vemulas19/whatsapp-stagging.git
+          git remote add target https://github.com/vemulas19/practict2.git
           git fetch origin
-          git reset --hard origin/branch1
-          git push https://vemulas19:${{ secrets.GH_PAT }}@github.com/vemulas19/whatsapp-stagging.git branch1 --force
+          git reset --hard origin/master
+          git push https://vemulas19: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@github.com/vemulas19/practict2 master --force
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
